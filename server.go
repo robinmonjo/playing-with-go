@@ -1,16 +1,20 @@
 package main
 
 import (
-    "net/http" //package for http based web programs
     "fmt"
+    "net/http"
+    "os"
 )
 
-func handler(w http.ResponseWriter, r *http.Request) { 
-    fmt.Println("Inside handler")
-    fmt.Fprintf(w, "Hello world from my Go program!")
+func main() {
+    http.HandleFunc("/", handle)
+    fmt.Println("listening...")
+    err := http.ListenAndServe(":"+os.Getenv("PORT"), nil)
+    if err != nil {
+      panic(err)
+    }
 }
 
-func main() {
-    http.HandleFunc("/", handler) // redirect all urls to the handler function
-    http.ListenAndServe("localhost:9999", nil) // listen for connections at port 9999 on the local machine
+func handle(res http.ResponseWriter, req *http.Request) {
+    fmt.Fprintln(res, "hello, world")
 }
