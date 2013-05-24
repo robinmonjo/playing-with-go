@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"encoding/json"
 	"playing-with-go/packages/sortAlgorithms"
+	"time"
 )
 
 func main() {
@@ -44,11 +45,17 @@ func sortHandler(res http.ResponseWriter, req *http.Request) {
 		return
 	}
 	
-	//calling algo
+	//calling algo and calculating time
+	startTime := time.Now()
 	sortAlgorithms.BubleSort(slice)
+	timeSpent := time.Now().Sub(startTime) / time.Microsecond
 	
 	//sending back json
-	b, err := json.Marshal(slice)
+	result := map[string]interface{}{
+		"result" : slice, "duration" : timeSpent,
+	}
+	
+	b, err := json.Marshal(result)
 	if err != nil {
 		fmt.Fprintf(res, "[ERROR] marshalling json body : %s", err)
 		return
