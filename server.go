@@ -6,7 +6,7 @@ import (
 	"os"
 	"io/ioutil"
 	"encoding/json"
-	"playing-with-go/packages/sorting"
+	"playing-with-go/sorting"
 	"time"
 )
 
@@ -18,6 +18,7 @@ func main() {
 	if err != nil {
 	  panic(err)
 	}
+	
 }
 
 func rootHandler(res http.ResponseWriter, req *http.Request) {

@@ -1,7 +1,7 @@
 package sorting
 	
 //interface for sortable object
-type Sortable interface {
+type Sorter interface {
 	length() int 						//return the size of the slice
 	less(i, j int) bool 		//return self[i] < self[j]
 	swap(i, j int) 					//swap self[i] sefl[j]
@@ -23,7 +23,7 @@ func (numbers SortableNumbers) swap(i, j int) {
 }
 
 //sorting algo	
-func Sort(sortable Sortable) {
+func Sort(sortable Sorter) {
 	n := sortable.length();
 	swapped := true
 	for swapped {
