@@ -26,6 +26,7 @@ func rootHandler(res http.ResponseWriter, req *http.Request) {
 }
 
 func sortHandler(res http.ResponseWriter, req *http.Request) {
+	
 	if req.Method != "POST" {
 		fmt.Fprintf(res, "Only allowing POST on /sort/")
 		return
