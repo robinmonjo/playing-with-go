@@ -59,7 +59,9 @@ func sortHandler(res http.ResponseWriter, req *http.Request) {
 	}
 	
 	//storing json
+	mongo.InitSession()
 	mongo.InsertBubbleSortResult(result)
+	mongo.CloseSession()
 		
 	//sending back json
 	b, err := json.Marshal(result)
