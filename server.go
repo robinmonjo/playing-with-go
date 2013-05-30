@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"playing-with-go/sorting"
 	"time"
+	"playing-with-go/mongo"
 )
 
 func main() {
@@ -52,11 +53,17 @@ func sortHandler(res http.ResponseWriter, req *http.Request) {
 	sorting.Sort(sorting.SortableNumbers(slice))
 	duration := time.Now().Sub(startTime)
 	
-	//sending back json
+	//preparing json
 	result := map[string]interface{}{
 		"result" : slice, "duration" : duration.String(),
 	}
 	
+	//storing json
+	mongo.InitSession()
+	mongo.InsertBubbleSortResult(result)
+	mongo.CloseSession()
+		
+	//sending back json
 	b, err := json.Marshal(result)
 	if err != nil {
 		fmt.Fprintf(res, "[ERROR] marshalling json body : %s", err)
