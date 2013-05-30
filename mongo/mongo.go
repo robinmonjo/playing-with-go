@@ -24,7 +24,7 @@ func InitSession() {
 	if (err != nil) {
 		panic(err)
 	}
-	parsed, err := url.Parse(os.Getenv("DATABASE_URL"))
+	parsed, err := url.Parse(os.Getenv("MONGOLAB_URI"))
 	if err != nil {
 		panic(err)
 	}
