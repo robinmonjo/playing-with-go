@@ -34,6 +34,7 @@ func CloseSession() {
 func InsertBubbleSortResult(jsonResult map[string]interface{}) {
 	fmt.Println("[INFO] - inserting", jsonResult)
 	c := session.DB(dbName).C(bubbleSortCollection)
+	fmt.Println("[INFO] - collection", c)
 	err := c.Insert(&jsonResult)
   if err != nil {
 		panic(err)
