@@ -2,12 +2,12 @@ package mongo
 
 import (
 	"labix.org/v2/mgo"
-//	"os"
+	"os"
 	"fmt"
 )
 
 //constants
-const dbName = "test"
+const dbName = "heroku_app15837240"
 const bubbleSortCollection = "bubble_sort"
 
 //global session
@@ -19,7 +19,7 @@ func InitSession() {
 		return
 	}
 	var err error
-	session, err = mgo.Dial("mongodb://robin2:lol@ds037997.mongolab.com:37997/heroku_app15837240")
+	session, err = mgo.Dial(os.Getenv("MONGOLAB_URI"))
 	if (err != nil) {
 		panic(err)
 	}
