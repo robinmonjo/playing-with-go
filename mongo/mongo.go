@@ -2,7 +2,7 @@ package mongo
 
 import (
 	"labix.org/v2/mgo"
-	"os"
+//	"os"
 	"fmt"
 )
 
@@ -19,7 +19,7 @@ func InitSession() {
 		return
 	}
 	var err error
-	session, err = mgo.Dial("mongodb://robin:lol@ds037997.mongolab.com:37997/heroku_app15837240")
+	session, err = mgo.Dial("mongodb://robin2:lol@ds037997.mongolab.com:37997/heroku_app15837240")
 	if (err != nil) {
 		panic(err)
 	}
