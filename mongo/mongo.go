@@ -19,7 +19,7 @@ func InitSession() {
 		return
 	}
 	var err error
-	session, err = mgo.Dial(os.Getenv("MONGOLAB_URI"))
+	session, err = mgo.Dial("mongodb://robin:lol@ds037997.mongolab.com:37997/heroku_app15837240")
 	if (err != nil) {
 		panic(err)
 	}
