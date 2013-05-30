@@ -4,14 +4,15 @@ import (
 	"labix.org/v2/mgo"
 	"os"
 	"fmt"
+	"net/url"
 )
 
 //constants
-const dbName = "heroku_app15837240"
 const bubbleSortCollection = "bubble_sort"
 
-//global session
+//globa
 var session *mgo.Session
+var dbName string //given by the mongodb URI
 
 func InitSession() {
 	if (session != nil) {
@@ -23,7 +24,11 @@ func InitSession() {
 	if (err != nil) {
 		panic(err)
 	}
-	fmt.Println("[INFO] - session opened")
+	parsed, err := url.Parse(os.Getenv("DATABASE_URL"))
+	if err != nil {
+		panic(err)
+	}
+	dbName = parsed.Path[1:]
 }
 
 func CloseSession() {
@@ -34,7 +39,6 @@ func CloseSession() {
 func InsertBubbleSortResult(jsonResult map[string]interface{}) {
 	fmt.Println("[INFO] - inserting", jsonResult)
 	c := session.DB(dbName).C(bubbleSortCollection)
-	fmt.Println("[INFO] - collection", c)
 	err := c.Insert(jsonResult)
   if err != nil {
 		panic(err)
