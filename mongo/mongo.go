@@ -23,13 +23,16 @@ func InitSession() {
 	if (err != nil) {
 		panic(err)
 	}
+	fmt.Println("[INFO] - session opened")
 }
 
 func CloseSession() {
 	session.Close()
+	fmt.Println("[INFO] - session closed")
 }
 
 func InsertBubbleSortResult(jsonResult map[string]interface{}) {
+	fmt.Println("[INFO] - inserting", jsonResult)
 	c := session.DB(dbName).C(bubbleSortCollection)
 	err := c.Insert(&jsonResult)
   if err != nil {
