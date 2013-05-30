@@ -28,7 +28,7 @@ func InitSession() {
 	if err != nil {
 		panic(err)
 	}
-	dbName = parsed.Path[1:]
+	dbName = parsed.Path[1:] //getting baack dbName
 }
 
 func CloseSession() {
@@ -37,6 +37,9 @@ func CloseSession() {
 }
 
 func InsertBubbleSortResult(jsonResult map[string]interface{}) {
+	if (session == nil) {
+		fmt.Println("[ERROR] - Database session must be initialized before inserting")
+	}
 	fmt.Println("[INFO] - inserting", jsonResult)
 	c := session.DB(dbName).C(bubbleSortCollection)
 	err := c.Insert(jsonResult)
