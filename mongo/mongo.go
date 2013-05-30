@@ -11,14 +11,15 @@ const dbName = "db_sort"
 const bubbleSortCollection = "bubble_sort"
 
 //global session
-var session Session
+var session *mgo.Session
 
 func InitSession() {
 	if (session != nil) {
 		fmt.Println("[WARNING] - Trying to init an already initialised MongoDB session")
 		return
 	}
-	session, err := mgo.Dial(os.Getenv("MONGOHQ_URL"))
+	var err error
+	session, err = mgo.Dial(os.Getenv("MONGOHQ_URL"))
 	if (err != nil) {
 		panic(err)
 	}
@@ -29,8 +30,8 @@ func CloseSession() {
 }
 
 func InsertBubbleSortResult(jsonResult map[string]interface{}) {
-	c := session.DB(dnName).C(bubbleSortCollection)
-	err = c.Insert(&jsonResult)
+	c := session.DB(dbName).C(bubbleSortCollection)
+	err := c.Insert(&jsonResult)
   if err != nil {
 		panic(err)
 	}
